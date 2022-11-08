@@ -1,22 +1,22 @@
-import React, { useState } from 'react';
-import { useMapEvents, Marker } from 'react-leaflet';
+import React, { useState, useEffect } from 'react';
+import { useMapEvents, Marker, Popup } from 'react-leaflet';
 import { LeafletMouseEvent, LatLngLiteral } from '@types/leaflet';
 import { Point } from '../../types/Point/Point';
 import { Todo } from '../../types/todo/Todo';
-import { Modal, Button } from 'react-bootstrap';
 import { ITodo } from '../../types/todo/ITodo';
+import MapTodoEditModal from '../MapTodoEditModal';
 
 const MapTodoList = () => {
     const [listTodo, updateList] = useState<Todo[]>([]);
-    const [editTodo, updateEditTodo] = useState<Todo | null>(null)
-    
+    const [editTodo, updateEditTodo] = useState<Todo | null>(null);
+
     const cancelCreating = () => {
         updateEditTodo(null);
     };
 
-    const saveTodo = () => {
+    const saveTodo = (newTodo: Todo) => {
         updateList(list => {
-            list.concat(editTodo as Todo);
+            list.push(newTodo as Todo);
             updateEditTodo(() => null);
             return list;
         });
@@ -33,22 +33,13 @@ const MapTodoList = () => {
         },
     });
 
+
+
     return (<>
-        {listTodo.map((item: ITodo, index: number) => <Marker key={index} position={item.point as LatLngLiteral}></Marker>)}
-        <Modal show={editTodo !== null} onHide={cancelCreating} animation={false}>
-            <Modal.Header closeButton>
-                <Modal.Title>Creating new todo</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
-            <Modal.Footer>
-                <Button variant="secondary" onClick={cancelCreating}>
-                    Close
-                </Button>
-                <Button variant="primary" onClick={saveTodo}>
-                    Save Changes
-                </Button>
-            </Modal.Footer>
-        </Modal>
+        {listTodo.map((item: ITodo, index: number) => <Marker key={index} position={item.point as LatLngLiteral}>
+            <Popup>{JSON.stringify(item)}</Popup>
+        </Marker>)}
+        {editTodo && <MapTodoEditModal editTodo={editTodo} onCancel={cancelCreating} onSave={saveTodo} />}
     </>);
 };
 

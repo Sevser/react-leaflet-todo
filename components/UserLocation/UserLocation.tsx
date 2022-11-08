@@ -10,7 +10,7 @@ const LocationMarker = () => {
             map.locate();
         },
         click() {
-            map.locate();
+            // map.locate();
         },
         locationfound(e: LocationEvent) {
             setPosition(e.latlng);
