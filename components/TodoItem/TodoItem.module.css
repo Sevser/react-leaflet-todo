@@ -4,4 +4,11 @@
 
 .card {
     cursor: pointer;
+    position: relative;
+}
+
+.trash {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
 }

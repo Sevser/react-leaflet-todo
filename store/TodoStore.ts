@@ -7,6 +7,7 @@ export interface ITodoContext {
   list: ITodo[],
   addToDo: (p: Todo) => void,
   markAsCompleted: (p: Todo) => void,
+  removeToDo: (p: Todo) => void,
 }
 
 class TodoStore implements ITodoContext {
@@ -26,6 +27,11 @@ class TodoStore implements ITodoContext {
     if (item !== undefined) {
       item.setCompleted();
     }
+  }
+
+  removeToDo(todo: Todo) {
+    const temp = this.list.filter(el => el.id !== todo.id);
+    this.list = temp;
   }
 
   __data() {
