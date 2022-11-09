@@ -32,8 +32,6 @@ const MapTodoList = () => {
         },
     });
 
-
-
     return (<>
         <LayersControl.Overlay checked name="layer with todo's">
             <LayerGroup>

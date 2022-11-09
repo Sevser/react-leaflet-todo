@@ -1,5 +1,3 @@
-import React from 'react';
-import { ITodo } from '../types/todo/ITodo';
 import isServer from '../utils/isServer';
 import ToDo, { ITodoContext } from './ToDo';
 
@@ -10,17 +8,33 @@ export interface IStore {
 
 let clientSideStores: IStore | null = null;
 
-export function getStores(initialData = { postStoreInitialData: {} }) {
+const StoreInitialData: () => IStore = () => {
+  if (isServer) {
+    return {
+      todos: new ToDo(),
+    };
+  }
+  try {
+    const rawStore = localStorage.getItem('store');
+    const store: IStore = JSON.parse(rawStore as string);
+    return {
+      todos: new ToDo(store.todos),
+    };
+  } catch(e) {
+    return {
+      todos: new ToDo(),
+    };
+  }
+}
+
+export function getStores(initialData = StoreInitialData()) {
   if (isServer) {
     return {
       todos: new ToDo(),
     };
   }
   if (!clientSideStores) {
-    clientSideStores = {
-      todos: new ToDo(),
-    };
+    clientSideStores = initialData;
   }
-
   return clientSideStores;
 }

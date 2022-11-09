@@ -1,5 +1,6 @@
 import { observable, action } from 'mobx';
 import { ITodo } from '../types/todo/ITodo';
+import { Todo } from '../types/todo/Todo';
 
 
 export interface ITodoContext {
@@ -10,7 +11,7 @@ export interface ITodoContext {
 class PostStore implements ITodoContext {
   @observable list: ITodo[] = [];
 
-  constructor(initialData = { list: [] }) {
+  constructor(initialData = { list: new Array<Todo>() }) {
     this.list = initialData.list;
   }
 
