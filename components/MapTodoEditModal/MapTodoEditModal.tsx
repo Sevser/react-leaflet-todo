@@ -53,13 +53,13 @@ const MapTodoEditModal = ({ editTodo, onCancel, onSave }: MapTodoEditModalProps)
             </Modal.Header>
             <Modal.Body>
                 <Form.Group className="mb-3" controlId="formTitle">
-                    <Form.Label>Todo's Title</Form.Label>
+                    <Form.Label>Todo&apos;s Title</Form.Label>
                     <Form.Control type="text" placeholder="Title" value={value.title} onInput={onInputTitle} />
                     <Form.Text className="text-muted">
                     </Form.Text>
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formDescription">
-                    <Form.Label>Todo's Description</Form.Label>
+                    <Form.Label>Todo&apos;s Description</Form.Label>
                     <Form.Control
                         value={value.description}
                         as="textarea"
