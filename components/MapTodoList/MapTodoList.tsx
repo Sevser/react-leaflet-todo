@@ -22,18 +22,6 @@ const MapTodoList = observer(() => {
         updateEditTodo(() => null);
     };
 
-    const map = useMapEvents({
-        contextmenu(e: LeafletMouseEvent) {
-            console.log(e);
-            updateEditTodo(new Todo({
-                point: new Point(e.latlng),
-                description: '',
-                completed: false,
-                title: '',
-            }));1
-        },
-    });
-
     return (<>
         <LayersControl.Overlay checked name="completed todo's">
             <LayerGroup>

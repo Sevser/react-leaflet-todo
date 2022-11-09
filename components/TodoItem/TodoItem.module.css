@@ -11,4 +11,11 @@
     position: absolute;
     top: 1rem;
     right: 1rem;
+    color: red;
+}
+
+.geo {
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
 }
