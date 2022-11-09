@@ -8,6 +8,7 @@ export class Todo implements ITodo {
     public description: string;
     public title: string;
     public point: IPoint;
+    public creationDate?: Date;
     constructor(props: ITodo) {
         if (props === undefined) {
             throw new BaseError('Required field is missing');
@@ -16,5 +17,8 @@ export class Todo implements ITodo {
         this.description = props.description;
         this.point = new Point(props.point);
         this.title = props.title;
+        if (props.creationDate) {
+            this.creationDate = new Date(props.creationDate);
+        }
     }
 }

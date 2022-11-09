@@ -1,31 +1,26 @@
+import React from 'react';
+import { ITodo } from '../types/todo/ITodo';
 import isServer from '../utils/isServer';
-import ToDo from './todo';
+import ToDo, { ITodoContext } from './ToDo';
 
-let clientSideStores;
+
+export interface IStore {
+  todos: ITodoContext,
+}
+
+let clientSideStores: IStore | null = null;
 
 export function getStores(initialData = { postStoreInitialData: {} }) {
   if (isServer) {
     return {
-      postStore: new PostStore(initialData.postStoreInitialData),
-      uiStore: new UIStore(),
+      todos: new ToDo(),
     };
   }
   if (!clientSideStores) {
     clientSideStores = {
-      postStore: new PostStore(initialData.postStoreInitialData),
-      uiStore: new UIStore(),
+      todos: new ToDo(),
     };
   }
 
   return clientSideStores;
-}
-
-const StoreContext = React.createContext();
-
-export function StoreProvider(props) {
-  return <StoreContext.Provider value={props.value}>{props.children}</StoreContext.Provider>;
-}
-
-export function useMobxStores() {
-  return React.useContext(StoreContext);
 }

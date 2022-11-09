@@ -14,28 +14,32 @@ const MapTodoEditModal = ({ editTodo, onCancel, onSave }: MapTodoEditModalProps)
     const [saveDisabled, updateSaveDisabled] = useState<boolean>(true);
     const [value, updateValue] = useState<Todo>(editTodo);
 
-    useEffect(() => {
-        if (editTodo !== null && editTodo.title && editTodo.description && saveDisabled) {
-            updateSaveDisabled(false);
-        } else if (!saveDisabled) {
-            updateSaveDisabled(true);
+    const checkAndUpdateSaveDisabled = (nVal: ITodo) => {
+        if (value !== null && nVal.title && nVal.description && saveDisabled) {
+            updateSaveDisabled(() => false);
+        } else if (!saveDisabled && (nVal === null || !nVal.title.length || !nVal.description.length)) {
+            updateSaveDisabled(() => true);
         }
-    }, [editTodo]);
+    };
 
     const onInputDescription = (e: SyntheticEvent) => {
         const element = e.target as HTMLInputElement;
-        updateValue(new Todo({
+        const nVal = new Todo({
             ...value,
             description: element.value,
-        }));
+        });
+        updateValue(nVal);
+        checkAndUpdateSaveDisabled(nVal);
     };
 
     const onInputTitle = (e: SyntheticEvent) => {
         const element = e.target as HTMLInputElement;
-        updateValue(new Todo({
+        const nVal = new Todo({
             ...value,
             title: element.value,
-        }));
+        });
+        updateValue(nVal);
+        checkAndUpdateSaveDisabled(nVal);
     };
 
     const saveTodo = () => {
@@ -50,7 +54,7 @@ const MapTodoEditModal = ({ editTodo, onCancel, onSave }: MapTodoEditModalProps)
             <Modal.Body>
                 <Form.Group className="mb-3" controlId="formTitle">
                     <Form.Label>Todo's Title</Form.Label>
-                    <Form.Control type="text" placeholder="Title" value={value.title}  onInput={onInputTitle} />
+                    <Form.Control type="text" placeholder="Title" value={value.title} onInput={onInputTitle} />
                     <Form.Text className="text-muted">
                     </Form.Text>
                 </Form.Group>
@@ -70,8 +74,8 @@ const MapTodoEditModal = ({ editTodo, onCancel, onSave }: MapTodoEditModalProps)
                 <Button variant="secondary" onClick={onCancel}>
                     Close
                 </Button>
-                <Button variant="primary" onClick={saveTodo}>
-                    Save Changes
+                <Button variant="primary" onClick={saveTodo} disabled={saveDisabled}>
+                    Save ToDo
                 </Button>
             </Modal.Footer>
         </Modal>

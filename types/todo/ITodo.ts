@@ -5,4 +5,5 @@ export interface ITodo {
     completed: boolean,
     description: string,
     title: string,
+    creationDate?: Date,
 }

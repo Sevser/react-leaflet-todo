@@ -1,26 +1,26 @@
 import { observable, action } from 'mobx';
+import { ITodo } from '../types/todo/ITodo';
 
-class PostStore {
-  @observable post = '';
-  @observable postId = '';
 
-  constructor(initialData = {}) {
-    this.post = initialData.post;
-    this.postId = initialData.postId;
+export interface ITodoContext {
+  list: ITodo[],
+  addToDo: (p: ITodo) => void,
+}
+
+class PostStore implements ITodoContext {
+  @observable list: ITodo[] = [];
+
+  constructor(initialData = { list: [] }) {
+    this.list = initialData.list;
   }
 
-  @action addToDo(post) {
-    this.post = post;
-  }
-
-  @action setPostId(id) {
-    this.postId = id;
+  @action addToDo(todo: ITodo) {
+    this.list.push(todo);
   }
 
   __data() {
     return {
-      post: this.post,
-      postId: this.postId,
+      list: this.list,
     };
   }
 }

@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { useMapEvents, Marker, Popup } from 'react-leaflet';
+import React, { useState } from 'react';
+import { useMapEvents, Marker, Popup, LayersControl, LayerGroup } from 'react-leaflet';
 import { LeafletMouseEvent, LatLngLiteral } from '@types/leaflet';
 import { Point } from '../../types/Point/Point';
 import { Todo } from '../../types/todo/Todo';
 import { ITodo } from '../../types/todo/ITodo';
 import MapTodoEditModal from '../MapTodoEditModal';
+import { useMobxStores } from '../../store/storeContext';
 
 const MapTodoList = () => {
-    const [listTodo, updateList] = useState<Todo[]>([]);
+    const store = useMobxStores();
     const [editTodo, updateEditTodo] = useState<Todo | null>(null);
 
     const cancelCreating = () => {
@@ -15,11 +16,9 @@ const MapTodoList = () => {
     };
 
     const saveTodo = (newTodo: Todo) => {
-        updateList(list => {
-            list.push(newTodo as Todo);
-            updateEditTodo(() => null);
-            return list;
-        });
+        newTodo.creationDate = new Date();
+        store.todos.addToDo(newTodo);
+        updateEditTodo(() => null);
     };
 
     const map = useMapEvents({
@@ -36,9 +35,13 @@ const MapTodoList = () => {
 
 
     return (<>
-        {listTodo.map((item: ITodo, index: number) => <Marker key={index} position={item.point as LatLngLiteral}>
-            <Popup>{JSON.stringify(item)}</Popup>
-        </Marker>)}
+        <LayersControl.Overlay checked name="layer with todo's">
+            <LayerGroup>
+                {store.todos.list.map((item: ITodo, index: number) => <Marker key={index} position={item.point as LatLngLiteral}>
+                    <Popup>{JSON.stringify(item)}</Popup>
+                </Marker>)}
+            </LayerGroup>
+        </LayersControl.Overlay>
         {editTodo && <MapTodoEditModal editTodo={editTodo} onCancel={cancelCreating} onSave={saveTodo} />}
     </>);
 };
