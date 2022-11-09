@@ -4,11 +4,11 @@ import { useMobxStores } from "../../store/storeContext";
 const BeforeUnload = () => {
     const store = useMobxStores();
     const saveStoreInLocalStorage = () => {
+        console.log(JSON.stringify(store));
         localStorage.setItem('store', JSON.stringify(store));
     };
     useEffect(() => {
         window.addEventListener('beforeunload', saveStoreInLocalStorage)
-        console.log('use effect store provider');
         return () => {
             window.removeEventListener('beforeunload', saveStoreInLocalStorage)
         }

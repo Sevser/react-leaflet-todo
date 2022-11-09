@@ -6,4 +6,5 @@ export interface ITodo {
     description: string,
     title: string,
     creationDate?: Date,
+    id: string,
 }

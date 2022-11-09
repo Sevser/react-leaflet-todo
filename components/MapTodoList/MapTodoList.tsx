@@ -23,6 +23,7 @@ const MapTodoList = () => {
 
     const map = useMapEvents({
         contextmenu(e: LeafletMouseEvent) {
+            console.log(e);
             updateEditTodo(new Todo({
                 point: new Point(e.latlng),
                 description: '',
@@ -33,9 +34,19 @@ const MapTodoList = () => {
     });
 
     return (<>
-        <LayersControl.Overlay checked name="layer with todo's">
+        <LayersControl.Overlay checked name="completed todo's">
             <LayerGroup>
-                {store.todos.list.map((item: ITodo, index: number) => <Marker key={index} position={item.point as LatLngLiteral}>
+                {store.todos.list.filter(item => item.completed).map((item: ITodo, index: number) => <Marker
+                    onContextmenu={(e) => console.log(e)}
+                    key={index}
+                    position={item.point as LatLngLiteral}>
+                    <Popup>{JSON.stringify(item)}</Popup>
+                </Marker>)}
+            </LayerGroup>
+        </LayersControl.Overlay>
+        <LayersControl.Overlay checked name="pending todo's">
+            <LayerGroup>
+                {store.todos.list.filter(item => !item.completed).map((item: ITodo, index: number) => <Marker key={index} position={item.point as LatLngLiteral}>
                     <Popup>{JSON.stringify(item)}</Popup>
                 </Marker>)}
             </LayerGroup>

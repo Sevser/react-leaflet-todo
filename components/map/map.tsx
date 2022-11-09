@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import L from 'leaflet';
-import { MapContainer, TileLayer, Marker, Popup, LayersControl } from 'react-leaflet'
+import { MapContainer, TileLayer, Marker, Popup, LayersControl, ZoomControl } from 'react-leaflet'
 
 import 'leaflet/dist/leaflet.css';
 import styles from './Map.module.css';
@@ -32,17 +32,21 @@ const Map = () => {
                 iconUrl: iconUrl.src,
                 shadowUrl: shadowUrl.src,
             });
+            L.control.zoom({
+                position: 'bottomright'
+            });
         })();
     }, []);
 
     return (
         <div ref={rootEl} className={styles['map-container']}>
             {
-                ready ? (<MapContainer center={[51.505, -0.09]} zoom={13} style={mapSize ? mapSize.sizeAsStyle : {}}>
+                ready ? (<MapContainer center={[51.505, -0.09]} zoom={13} style={mapSize ? mapSize.sizeAsStyle : {}} zoomControl={false}>
                     <TileLayer
                         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     />
+                    <ZoomControl position='bottomright'/>
                     <UserLocation />
                     <LayersControl position="topright">
                         <MapTodoList />

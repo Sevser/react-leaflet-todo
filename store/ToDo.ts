@@ -1,4 +1,4 @@
-import { observable, action } from 'mobx';
+import { observable, action, isObservable } from 'mobx';
 import { ITodo } from '../types/todo/ITodo';
 import { Todo } from '../types/todo/Todo';
 
@@ -12,7 +12,7 @@ class PostStore implements ITodoContext {
   @observable list: ITodo[] = [];
 
   constructor(initialData = { list: new Array<Todo>() }) {
-    this.list = initialData.list;
+    this.list = observable(initialData.list.map(item => new Todo(item)));
   }
 
   @action addToDo(todo: ITodo) {
