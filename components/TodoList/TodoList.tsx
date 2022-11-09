@@ -1,8 +1,10 @@
 import { isObservable, toJS } from "mobx";
 import { useEffect, useState } from "react";
 import { useMobxStores } from "../../store/storeContext";
-import { observer } from 'mobx-react';
-import TodoItem from "../TodoItem";
+import { observer, inject } from 'mobx-react';
+import TodoItem from "../TodoItem/index.ts";
+
+
 
 const TodoList = observer(() => {
     const store = useMobxStores();
@@ -13,7 +15,7 @@ const TodoList = observer(() => {
     });
 
     return (<div>
-        {mounted && store.todos.list.slice().map(item => <TodoItem key={item.id} todo={item} />)}
+        {mounted && store.todos.list.map(item => <TodoItem key={item.id} todo={item} />)}
     </div>);
 });
 

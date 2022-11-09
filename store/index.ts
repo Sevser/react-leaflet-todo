@@ -1,5 +1,5 @@
 import isServer from '../utils/isServer';
-import ToDo, { ITodoContext } from './ToDo';
+import ToDo, { ITodoContext } from './TodoStore';
 
 
 export interface IStore {
