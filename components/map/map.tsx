@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, SetStateAction } from 'react';
 import L from 'leaflet';
 import { MapContainer, TileLayer, LayersControl, ZoomControl } from 'react-leaflet'
 
@@ -53,7 +53,7 @@ const Map = () => {
             updateInitialCenter([isNaN(lat) ? initialCenter[0] : lat, isNaN(lng) ? initialCenter[1] : lng]);
             updateReadyCoord(() => true);
         }
-    });
+    });    
 
     return (
         <div ref={rootEl} className={styles['map-container']}>

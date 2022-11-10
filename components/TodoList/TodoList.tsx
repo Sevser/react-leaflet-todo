@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useMobxStores } from "../../store/StoreContext";
-import { observer, inject } from 'mobx-react';
+import { observer } from 'mobx-react';
 import TodoItem from "../TodoItem/index.ts";
 
 

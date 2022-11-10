@@ -6,6 +6,7 @@ import { TrashFill, GeoAltFill } from 'react-bootstrap-icons';
 
 
 import styles from './TodoItem.module.css';
+import { showOnMapChannel } from "../../utils/events/showOnMapChannel";
 
 const TodoItemPopover = (props: object) => (<Tooltip {...props}>
     Click to locate
@@ -13,6 +14,10 @@ const TodoItemPopover = (props: object) => (<Tooltip {...props}>
 
 const TodoItem = observer(({ todo }: { todo: Todo }) => {
     const store = useMobxStores();
+
+    const showOnMap = () => {
+        showOnMapChannel.emit('showOnMap', { center: todo.point, zoom: 13 });
+    };
 
     return (<Card className={styles.card}>
         <Card.Body>
@@ -31,6 +36,7 @@ const TodoItem = observer(({ todo }: { todo: Todo }) => {
                 delay={{ show: 250, hide: 400 }}
                 overlay={TodoItemPopover}>
                 <GeoAltFill
+                    onClick={showOnMap}
                     className={styles.geo} />
             </OverlayTrigger>
         </Card.Body>
