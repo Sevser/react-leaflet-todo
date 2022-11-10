@@ -1,6 +1,9 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
-import Map from '../components/map'
+import Map from '../components/Map'
+
+import 'bootstrap/dist/css/bootstrap.min.css';
+import NavigationPanel from '../components/NavigationPanel';
 
 export default function Home() {
   return (
@@ -13,6 +16,7 @@ export default function Home() {
 
       <main className={styles.main}>
         <Map />
+        <NavigationPanel />
       </main>
     </div>
   )
