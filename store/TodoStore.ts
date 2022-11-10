@@ -13,9 +13,11 @@ export interface ITodoContext {
 class TodoStore implements ITodoContext {
   @observable.deep list: Todo[] = [];
 
-  constructor(initialData = { list: new Array<Todo>() }) {
+  constructor(initialData: Partial<ITodoContext> = { list: new Array<Todo>() }) {
     makeAutoObservable(this);
-    this.list = initialData.list.map(item => new Todo(item));
+    if (initialData.list !== undefined) {
+      this.list = initialData.list.map(item => new Todo(item));
+    }
   }
 
   addToDo(todo: Todo) {

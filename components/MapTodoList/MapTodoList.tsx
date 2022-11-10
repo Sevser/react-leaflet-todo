@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useMapEvents, Marker, LayersControl, LayerGroup } from 'react-leaflet';
-import { LatLngLiteral } from '@types/leaflet';
 import { Point } from '../../types/Point/Point';
 import { Todo } from '../../types/todo/Todo';
 import { ITodo } from '../../types/todo/ITodo';
@@ -35,12 +34,12 @@ const MapTodoList = observer(() => {
             <LayerGroup>
                 {store.todos.list.filter(item => item.completed).map((item: ITodo, index: number) => <Marker
                     key={index}
-                    position={item.point as LatLngLiteral} />)}
+                    position={item.point} />)}
             </LayerGroup>
         </LayersControl.Overlay>
         <LayersControl.Overlay checked name="pending todo's">
             <LayerGroup>
-                {store.todos.list.filter(item => !item.completed).map((item: ITodo, index: number) => <Marker key={index} position={item.point as LatLngLiteral} />)}
+                {store.todos.list.filter(item => !item.completed).map((item: ITodo, index: number) => <Marker key={index} position={item.point} />)}
             </LayerGroup>
         </LayersControl.Overlay>
         {editTodo && <MapTodoEditModal editTodo={editTodo} onCancel={cancelCreating} onSave={saveTodo} />}

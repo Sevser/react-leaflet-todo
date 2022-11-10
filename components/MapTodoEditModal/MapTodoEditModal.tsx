@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Modal, Form, Button } from 'react-bootstrap';
 import { ITodo } from '../../types/todo/ITodo';
 import { Todo } from '../../types/todo/Todo';
-import { SyntheticEvent } from '@types/react';
 
 type MapTodoEditModalProps = {
     editTodo: Todo,
@@ -22,7 +21,7 @@ const MapTodoEditModal = ({ editTodo, onCancel, onSave }: MapTodoEditModalProps)
         }
     };
 
-    const onInputDescription = (e: SyntheticEvent) => {
+    const onInputDescription = (e: any) => {
         const element = e.target as HTMLInputElement;
         const nVal = new Todo({
             ...value,
@@ -32,7 +31,7 @@ const MapTodoEditModal = ({ editTodo, onCancel, onSave }: MapTodoEditModalProps)
         checkAndUpdateSaveDisabled(nVal);
     };
 
-    const onInputTitle = (e: SyntheticEvent) => {
+    const onInputTitle = (e: any) => {
         const element = e.target as HTMLInputElement;
         const nVal = new Todo({
             ...value,

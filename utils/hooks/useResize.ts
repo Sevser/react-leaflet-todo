@@ -1,7 +1,7 @@
 import { useState, useCallback, useEffect } from 'react';
 import { MapSize } from '../../types/MapSize/MapSize';
 
-const useResize = (ref: RefObject<HTMLDivElement>): [MapSize | null, () => void] => {
+const useResize = (ref: any): [MapSize | null, () => void] => {
     const [value, setValue] = useState<MapSize | null>(null);
 
     const updateResizeCallback = () => {

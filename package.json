@@ -1,5 +1,6 @@
 {
-  "name": "react-leaflet-todo",
+  "name": "react-leaflet-todo",  
+  "homepage": "https://sevser.github.io/bluesweaterstudio-test-assignment/",
   "version": "0.1.0",
   "private": true,
   "scripts": {
