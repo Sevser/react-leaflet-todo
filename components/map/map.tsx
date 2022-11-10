@@ -58,19 +58,23 @@ const Map = () => {
     return (
         <div ref={rootEl} className={styles['map-container']}>
             {
-                ready && readyCoord ? (<MapContainer center={initialCenter} zoom={initialZoom} style={mapSize ? mapSize.sizeAsStyle : {}} zoomControl={false}>
+                ready && readyCoord ? (<MapContainer
+                    center={initialCenter}
+                    zoom={initialZoom}
+                    style={mapSize ? mapSize.sizeAsStyle : {}}
+                    zoomControl={false}>
                     <TileLayer
                         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     />
-                    <ZoomControl position='bottomright'/>
+                    <ZoomControl position='bottomright' />
                     <UserLocation />
                     <LayersControl position="topright">
                         <MapTodoList />
                     </LayersControl>
                 </MapContainer>) : ''
             }
-        </div>
+        </div >
     )
 };
 

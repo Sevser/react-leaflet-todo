@@ -12,14 +12,14 @@ export class Todo implements ITodo {
     public id: string;
     public point: IPoint;
     public creationDate?: Date;
-    constructor(props: ITodo) {
+    constructor(props: Partial<ITodo>) {
         makeAutoObservable(this);
         if (props === undefined) {
             throw new BaseError('Required field is missing');
         }
-        this.completed = props.completed;
-        this.description = props.description;
-        this.title = props.title;
+        this.completed = props.completed || false
+        this.description = props.description || '';
+        this.title = props.title || '';
         this.point = new Point(props.point);
         this.id = props.id || createGuid();
         if (props.creationDate) {

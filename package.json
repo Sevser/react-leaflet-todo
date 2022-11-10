@@ -16,6 +16,7 @@
     "eslint": "8.27.0",
     "eslint-config-next": "13.0.2",
     "leaflet": "1.9.2",
+    "leaflet-contextmenu": "^1.4.0",
     "mobx": "6.6.2",
     "mobx-react": "7.5.3",
     "next": "13.0.2",

@@ -5,9 +5,9 @@ import { Todo } from '../../types/todo/Todo';
 import { SyntheticEvent } from '@types/react';
 
 type MapTodoEditModalProps = {
-    editTodo: ITodo,
+    editTodo: Todo,
     onCancel: () => void,
-    onSave: (p: ITodo) => void,
+    onSave: (p: Todo) => void,
 };
 
 const MapTodoEditModal = ({ editTodo, onCancel, onSave }: MapTodoEditModalProps) => {

@@ -1,10 +1,10 @@
+import { observer } from "mobx-react";
 import { useEffect } from "react";
 import { useMobxStores } from "../../store/StoreContext";
 
-const BeforeUnload = () => {
+const BeforeUnload = observer(() => {
     const store = useMobxStores();
     const saveStoreInLocalStorage = () => {
-        console.log(JSON.stringify(store));
         localStorage.setItem('store', JSON.stringify(store));
     };
     useEffect(() => {
@@ -14,6 +14,6 @@ const BeforeUnload = () => {
         }
     })
     return (<></>)
-}
+});
 
 export default BeforeUnload;

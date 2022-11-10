@@ -1,6 +1,6 @@
 import { Button, Card, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { observer } from 'mobx-react';
-import { useMobxStores } from "../../store/storeContext";
+import { useMobxStores } from "../../store/StoreContext";
 import { Todo } from "../../types/todo/Todo";
 import { TrashFill, GeoAltFill } from 'react-bootstrap-icons';
 
